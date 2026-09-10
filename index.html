@@ -1,0 +1,319 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="imm-version" content="2026.09.10.20"><meta name="theme-color" content="#0759a8"><link rel="manifest" href="manifest.json"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/icon-192.png"><title>IMM V-Notch Calculator</title><style>
+:root{--b:#0759a8;--b2:#087ff0;--t:#123d73;--l:#d3e6f8;--p:#eef7ff;--g:#109b68}*{box-sizing:border-box}body{margin:0;background:#eaf6ff;font-family:Arial;color:var(--t)}.app{max-width:520px;margin:auto;min-height:100vh;background:#fff;box-shadow:0 0 25px #8db8db}header{height:76px;background:linear-gradient(135deg,#07529b,#0785ee);color:#fff;padding:12px 14px;display:flex;align-items:center;border-radius:0 0 28px 28px;position:sticky;top:0;z-index:5}.back{background:none;color:#fff;border:0;font-size:28px;width:38px}.title{font-weight:700;font-size:18px;flex:1}.logo{font-size:25px;font-weight:900;text-align:right}.headerLogoImg{display:block;width:64px;height:48px;max-width:82px;max-height:48px;object-fit:contain;margin-left:auto;border-radius:6px}.logo small{display:block;font-size:7px;text-align:right}main{padding:14px 13px 80px}.screen{display:none}.screen.active{display:block}.hero{text-align:center;background:linear-gradient(#f2faff,#d8efff);border:1px solid var(--l);border-radius:18px;padding:14px}.heroLogo{font-size:39px;font-weight:900;color:#382081}.hero h1{font-size:25px;margin:7px 0;color:#174f93}.water{height:100px;margin:10px -14px;background:linear-gradient(#a9dcfa,#258bd1 55%,#0870c4);position:relative;overflow:hidden}.water:after{content:"";position:absolute;left:20%;right:20%;top:25px;height:60px;background:#fff8;border-radius:50%;transform:skewX(-20deg)}.menu{display:grid;gap:9px;margin-top:12px}.menu button,.list{border:1px solid var(--l);border-radius:14px;background:#fff;padding:12px;display:flex;align-items:center;text-align:left;color:var(--t);width:100%}.ico{width:40px;height:40px;background:#e8f4ff;border-radius:11px;display:grid;place-items:center;font-size:21px;margin-right:10px}.menu b{display:block;font-size:14px}.menu small{color:#6b86a1}.arrow{margin-left:auto;font-size:22px}.card{border:1px solid var(--l);border-radius:14px;padding:13px;margin-bottom:11px}.card h3{font-size:15px;color:#1261ad;margin:0 0 11px}.field{margin-bottom:10px}.field label{display:block;font-size:12px;font-weight:bold;margin-bottom:5px}.field input,.field select,.search{width:100%;padding:10px;border:1px solid #bdd7ef;border-radius:9px;color:#173f6d;background:#fff}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}.actions{display:flex;gap:9px}.btn{padding:12px;border:0;border-radius:10px;font-weight:bold;flex:1}.primary{background:linear-gradient(135deg,#087cf0,#075fc8);color:#fff}.secondary{background:#eaf5ff;color:#075dab}.green{background:#0b9b68;color:#fff}.result{background:#edfff7;border:1px solid #bcebd7;border-radius:12px;padding:12px}.big{font-size:27px;font-weight:800;color:#08764f}.ok{font-weight:bold;color:#08764f}.table{width:100%;border-collapse:collapse;font-size:12px}.table th,.table td{border:1px solid #d4e5f5;padding:7px;text-align:center}.table th{background:#eef7ff}.item{justify-content:space-between;margin-bottom:8px}.danger{color:#c33;background:#fff0f0;border:0;border-radius:8px;padding:6px}.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px}.filters .field{margin:0}.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}.stat{padding:11px;border-radius:11px;background:#eef7ff}.stat b{font-size:18px}.stat small{display:block;color:#64819e}.unitTabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:9px 0}.unitTabs button{padding:10px 4px;border-radius:9px;border:1px solid #bdd7ef;background:#fff;color:#20527f;font-weight:bold}.unitTabs .sel{background:#0876e5;color:#fff}.chartBox{border:1px solid var(--l);border-radius:12px;padding:7px;background:#fbfdff}canvas{width:100%;height:270px}.note{font-size:11px;color:#68839e;line-height:1.5}.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);height:66px;background:#fff;border-top:1px solid #d5e7f8;display:grid;grid-template-columns:repeat(5,1fr);z-index:10}.bottom button{border:0;background:#fff;color:#54718f;font-size:10px}.settingsLogo{max-width:180px;max-height:80px;object-fit:contain;display:block;margin:8px auto;border-radius:10px}.logoChoices{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.logoChoice{padding:9px 5px;border:1px solid #bdd7ef;border-radius:10px;background:#fff;text-align:center;font-weight:bold;color:#20527f}.logoChoice.sel{border:2px solid #0876e5;background:#eef7ff}.previewLogo{min-height:70px;border:1px dashed #bdd7ef;border-radius:12px;display:grid;place-items:center;background:#f8fcff;margin-bottom:10px}.settingsHint{font-size:11px;color:#68839e;margin-top:5px}.bottom b{display:block;font-size:19px}.bottom .on{color:#0875df;font-weight:bold}.toast{position:fixed;bottom:75px;left:50%;transform:translateX(-50%);background:#173d6d;color:#fff;padding:10px 14px;border-radius:10px;display:none;z-index:20;font-size:12px}@media(min-width:700px){body{padding:20px}.app{border-radius:24px;overflow:hidden}}
+
+@media print{
+  @page{size:A4 portrait;margin:12mm}
+  body{background:#fff!important;padding:0!important}
+  .app{display:none!important}
+  #pdfReport{display:block!important;font-family:Arial,sans-serif;color:#172b3a;padding:0;line-height:1.35}
+  #pdfReport .pdfHeader{display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #0759a8;padding-bottom:10px;margin-bottom:14px}
+  #pdfReport .pdfBrand{display:flex;align-items:center;gap:10px}
+  #pdfReport .pdfLogo{width:58px;height:58px;border:2px solid #0759a8;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#0759a8;font-size:22px;font-weight:900}
+  #pdfReport .pdfOrg{font-size:20px;font-weight:800;color:#0759a8}
+  #pdfReport .pdfTag{font-size:9px;color:#6b8195}
+  #pdfReport .pdfTitle{text-align:right}
+  #pdfReport h1{color:#0759a8;margin:0 0 2px;font-size:19px}
+  #pdfReport .meta{font-size:9px;color:#687d90}
+  #pdfReport h2{margin:16px 0 7px;font-size:12px;color:#0759a8;border-left:4px solid #087ff0;padding-left:7px}
+  #pdfReport .infoGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-bottom:10px}
+  #pdfReport .infoBox{border:1px solid #c9dceb;border-radius:6px;padding:7px;font-size:9px}
+  #pdfReport .infoBox b{display:block;font-size:8px;color:#6b8195;text-transform:uppercase;margin-bottom:2px}
+  #pdfReport table{width:100%;border-collapse:collapse;font-size:8px}
+  #pdfReport th,#pdfReport td{border:1px solid #b9cbd8;padding:4px;text-align:center;vertical-align:middle}
+  #pdfReport th{background:#eaf4fb;color:#174f7e;font-weight:700}
+  #pdfReport tbody tr:nth-child(even){background:#f8fbfd}
+  #pdfReport .summary{margin:8px 0;padding:9px;border:1px solid #b9dfcf;border-radius:7px;background:#f1fff8;font-size:9px}
+  #pdfReport .resultGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:8px 0}
+  #pdfReport .resultBox{border:1px solid #b9d8ef;border-radius:7px;padding:8px;text-align:center;background:#f7fbff}
+  #pdfReport .resultBox b{display:block;font-size:8px;color:#64809a}
+  #pdfReport .resultBox strong{font-size:14px;color:#08764f}
+  #pdfReport .signGrid{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:28px}
+  #pdfReport .sign{border-top:1px solid #667784;text-align:center;padding-top:5px;font-size:9px;min-height:38px}
+  #pdfReport .footer{margin-top:18px;border-top:1px solid #d5e1e8;padding-top:6px;font-size:7px;color:#7890a2;display:flex;justify-content:space-between}
+  #pdfReport .pageBreak{page-break-before:always}
+}
+#pdfReport{display:none}
+</style></head><body><div class="app"><header><button class="back" id="back" onclick="show('home')">‹</button><div class="title" id="title">V-Notch Calculator</div><div class="logo" id="headerLogo">IMM<small>Air Terukur, Lingkungan Terjaga</small></div></header><main>
+<section id="home" class="screen active"><div class="hero"><div class="heroLogo">◢ IMM</div><div class="water"></div><h1>V-Notch Calculator</h1><p>Perhitungan Debit V-Notch</p><b>Praktis • Akurat • Offline</b></div><div class="menu"><button onclick="show('calc')"><span class="ico">🧮</span><span><b>Hitung Debit</b><small>Perhitungan debit V-Notch</small></span><span class="arrow">›</span></button><button onclick="show('history')"><span class="ico">◷</span><span><b>Histori Data</b><small>Lihat & kelola data pengukuran</small></span><span class="arrow">›</span></button><button onclick="show('graph')"><span class="ico">▥</span><span><b>Grafik</b><small>Tren debit dari data histori</small></span><span class="arrow">›</span></button><button onclick="show('export')"><span class="ico">⇩</span><span><b>Export Data</b><small>Simpan ke Excel / PDF</small></span><span class="arrow">›</span></button><button onclick="show('guide')"><span class="ico">ⓘ</span><span><b>Panduan</b><small>Cara penggunaan aplikasi</small></span><span class="arrow">›</span></button><button onclick="show('settings')"><span class="ico">⚙</span><span><b>Pengaturan Logo & Tulisan</b><small>Ganti logo dan teks di bawah logo</small></span><span class="arrow">›</span></button></div></section>
+<section id="calc" class="screen"><div class="card"><h3>Informasi Pengukuran</h3><div class="grid2"><div class="field"><label>Tanggal</label><input id="date" type="date"></div><div class="field"><label>Jam</label><input id="time" type="time"></div></div><div class="field"><label>Lokasi / Settling Pond</label><input id="loc" placeholder="SP-16"></div><div class="field"><label>Nama Operator</label><input id="op" placeholder="Nama operator"></div></div><div class="card"><h3>Parameter V-Notch</h3><div class="field"><label>Sudut V-Notch (θ)</label><select id="theta"><option>90</option><option>60</option><option>45</option><option>30</option><option>120</option></select></div><div class="field"><label>Tinggi muka air H (cm)</label><input id="h" type="number" step="0.01" placeholder="5"></div><div class="grid2"><div class="field"><label>Koefisien debit (Cd)</label><input id="cd" type="number" step="0.01" value="1.50"></div><div class="field"><label>Percepatan gravitasi (g)</label><input id="g" type="number" step="0.01" value="9.8"></div></div><div class="field"><label>Jumlah pintu</label><select id="gates"><option value="1">1 Pintu</option><option value="2">2 Pintu</option><option value="3">3 Pintu</option></select></div><div class="actions"><button class="btn secondary" onclick="resetForm()">↻ Reset</button><button class="btn primary" onclick="calc()">▣ Hitung Debit</button></div></div><div class="card note"><b>Rumus:</b> Q = Cd × (8/15) × √(2g) × tan(θ/2) × H⁵/².</div></section>
+<section id="result" class="screen">
+<div class="card"><div class="result"><div class="ok">✓ Perhitungan Berhasil</div>Berikut hasil perhitungan debit V-Notch</div></div>
+<div class="card"><h3>Parameter yang digunakan</h3><table class="table" id="params"></table></div>
+<div class="card"><h3>Satuan hasil sebelum disimpan</h3>
+<div class="unitTabs"><button id="ruM3" class="saveUnit" onclick="setResultUnit('m3')">m³/s</button><button id="ruLs" class="saveUnit sel" onclick="setResultUnit('ls')">L/s</button><button id="ruHr" class="saveUnit" onclick="setResultUnit('hr')">m³/jam</button></div>
+<div class="result" style="text-align:center"><div>Debit (Q)</div><span class="big" id="selectedResult">0</span> <b id="selectedUnit">L/s</b><div class="note">Satuan yang dipilih akan ikut tersimpan pada histori.</div></div></div>
+<div class="card"><h3>Hasil semua satuan</h3><table class="table"><tr><th>m³/s</th><th>L/s</th><th>m³/jam</th></tr><tr><td id="rM3">0</td><td id="rLs">0</td><td id="rHr">0</td></tr></table></div>
+<div class="card"><h3>Hasil per pintu</h3><table class="table" id="perGate"></table></div>
+<div class="actions"><button class="btn green" onclick="save()">💾 Simpan</button><button class="btn primary" onclick="exportCSV()">⇩ Export</button><button class="btn secondary" onclick="show('calc')">↻ Hitung Lagi</button></div>
+</section>
+<section id="history" class="screen"><div class="card"><input class="search" id="search" oninput="renderHistory()" placeholder="🔎 Cari lokasi, tanggal, atau operator..."></div><div id="hist"></div></section>
+<section id="graph" class="screen">
+<div class="card"><h3>Grafik Debit</h3>
+<div class="filters">
+<div class="field"><label>Rentang Data</label><select id="range" onchange="renderGraph()"><option value="7">7 Hari Terakhir</option><option value="30" selected>30 Hari Terakhir</option><option value="90">90 Hari Terakhir</option><option value="all">Semua Data</option><option value="custom">Pilih Tanggal</option></select></div>
+<div class="field"><label>Lokasi</label><select id="filterLoc" onchange="renderGraph()"><option value="all">Semua Lokasi</option></select></div>
+</div>
+<div id="customDates" class="filters" style="display:none;margin-top:8px"><div class="field"><label>Dari</label><input id="fromDate" type="date" onchange="renderGraph()"></div><div class="field"><label>Sampai</label><input id="toDate" type="date" onchange="renderGraph()"></div></div>
+<div class="unitTabs"><button id="uM3" onclick="setUnit('m3')">m³/s</button><button id="uLs" class="sel" onclick="setUnit('ls')">L/s</button><button id="uHr" onclick="setUnit('hr')">m³/jam</button></div>
+<div class="chartBox"><canvas id="chart" width="900" height="460"></canvas></div></div>
+<div class="card"><h3>Rekap Data</h3><div class="stats"><div class="stat"><b id="avg">0</b><small>Rata-rata</small></div><div class="stat"><b id="mx">0</b><small>Maksimum</small></div><div class="stat"><b id="mn">0</b><small>Minimum</small></div><div class="stat"><b id="cnt">0</b><small>Jumlah Data</small></div></div></div>
+</section>
+<section id="export" class="screen"><div class="card"><h3>Pilih Format Export</h3><button class="list" onclick="exportCSV()">📗 &nbsp;<b>Export ke Excel / CSV</b><span class="arrow">›</span></button><br><button class="list" onclick="exportPDF()">📕 &nbsp;<b>Export ke PDF</b><span class="arrow">›</span></button></div><div class="card note">CSV dapat dibuka dengan Microsoft Excel. Untuk PDF pilih <b>Save as PDF</b>. Data tersimpan di perangkat dan aplikasi dapat digunakan offline.</div></section>
+<section id="settings" class="screen"><div class="card"><h3>Logo Aplikasi</h3><div class="previewLogo" id="logoPreview">IMM</div><div class="logoChoices"><button class="logoChoice sel" id="logoTextBtn" onclick="chooseLogo('text')">IMM</button><button class="logoChoice" id="logoWaterBtn" onclick="chooseLogo('water')">💧 IMM</button><button class="logoChoice" id="logoCircleBtn" onclick="chooseLogo('circle')">◢ IMM</button></div><div class="field" style="margin-top:10px"><label>Upload logo sendiri</label><input id="logoFile" type="file" accept="image/*" onchange="uploadLogo(event)"><div class="settingsHint">Logo akan tersimpan di perangkat ini.</div></div><button class="btn secondary" style="width:100%;margin-top:8px" onclick="removeLogo()">↺ Kembalikan logo IMM</button></div><div class="card"><h3>Edit tulisan di bawah logo</h3><div class="field"><label>Tulisan bawah logo</label><input id="taglineInput" maxlength="80" placeholder="Air Terukur, Lingkungan Terjaga"></div><div class="field"><label>Judul aplikasi</label><input id="appTitleInput" maxlength="50" placeholder="V-Notch Calculator"></div><button class="btn primary" style="width:100%" onclick="saveBranding()">💾 Simpan Pengaturan</button></div><div class="card note">Pengaturan logo dan tulisan tersimpan di browser/HP secara offline.</div></section><section id="guide" class="screen"><div class="card"><h3>Panduan Penggunaan</h3><ol class="note" style="line-height:2"><li>Isi tanggal, jam, lokasi dan operator.</li><li>Masukkan H dalam cm.</li><li>Pilih sudut V-Notch, Cd, g dan jumlah pintu.</li><li>Tekan Hitung Debit.</li><li>Simpan hasil ke Histori.</li><li>Pada Grafik pilih <b>m³/s, L/s, atau m³/jam</b>.</li><li>Gunakan Export untuk CSV atau PDF.</li></ol></div></section></main><div id="pdfReport"></div>
+<nav class="bottom"><button onclick="show('home')" id="nHome"><b>⌂</b>Beranda</button><button onclick="show('history')" id="nHistory"><b>◷</b>Histori</button><button onclick="show('graph')" id="nGraph"><b>▥</b>Grafik</button><button onclick="show('export')" id="nExport"><b>⇩</b>Export</button><button onclick="show('settings')" id="nSettings"><b>⚙</b>Pengaturan</button></nav><div id="toast" class="toast"></div></div>
+<script>
+let current=null,unit='ls',resultUnit='ls',$=id=>document.getElementById(id),d=new Date();
+$('date').value=d.toISOString().slice(0,10);$('time').value=d.toTimeString().slice(0,5);
+const titles={home:'V-Notch Calculator',calc:'Hitung Debit',result:'Hasil Perhitungan',history:'Histori Data',graph:'Grafik Debit',export:'Export Data',guide:'Panduan',settings:'Pengaturan'};
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');$('title').textContent=titles[id];$('back').style.visibility=id==='home'?'hidden':'visible';document.querySelectorAll('.bottom button').forEach(x=>x.classList.remove('on'));let n={home:'nHome',history:'nHistory',graph:'nGraph',export:'nExport',guide:null,settings:'nSettings'}[id];if(n)$(n).classList.add('on');applyBrand();if(id==='history')renderHistory();if(id==='graph'){populateLocations();renderGraph()}}
+function home(){show('home')}
+function toast(t){let x=$('toast');x.textContent=t;x.style.display='block';setTimeout(()=>x.style.display='none',1600)}
+function resetForm(){['loc','op','h'].forEach(x=>$(x).value='');$('theta').value='90';$('cd').value='1.50';$('g').value='9.8';$('gates').value='1';toast('Form direset')}
+function calc(){
+let H=+$('h').value,th=+$('theta').value,cd=+$('cd').value,g=+$('g').value,ng=+$('gates').value;
+if(!(H>0)){toast('Masukkan H dalam cm');return}
+let hm=H/100,q1=cd*(8/15)*Math.sqrt(2*g)*Math.tan(th*Math.PI/360)*Math.pow(hm,2.5),q=q1*ng;
+current={id:Date.now(),date:$('date').value,time:$('time').value,loc:$('loc').value||'-',op:$('op').value||'-',H,th,cd,g,ng,q1,q,qLs:q*1000,qHr:q*3600,saveUnit:'ls'};
+$('params').innerHTML=`<tr><th>Sudut V-notch</th><td>${th}°</td></tr><tr><th>Tinggi muka air</th><td>${H} cm</td></tr><tr><th>Koefisien debit</th><td>${cd}</td></tr><tr><th>Gravitasi</th><td>${g} m/s²</td></tr><tr><th>Jumlah pintu</th><td>${ng}</td></tr>`;
+$('rM3').textContent=q.toFixed(4);$('rLs').textContent=q*1000<10?(q*1000).toFixed(3):(q*1000).toFixed(2);$('rHr').textContent=q*3600<10?(q*3600).toFixed(3):(q*3600).toFixed(2);
+$('perGate').innerHTML='<tr><th></th><th>1 Pintu</th><th>2 Pintu</th><th>3 Pintu</th></tr><tr><th>m³/s</th><td>'+q1.toFixed(4)+'</td><td>'+(q1*2).toFixed(4)+'</td><td>'+(q1*3).toFixed(4)+'</td></tr><tr><th>L/s</th><td>'+(q1*1000).toFixed(3)+'</td><td>'+(q1*2000).toFixed(3)+'</td><td>'+(q1*3000).toFixed(3)+'</td></tr><tr><th>m³/jam</th><td>'+(q1*3600).toFixed(3)+'</td><td>'+(q1*7200).toFixed(3)+'</td><td>'+(q1*10800).toFixed(3)+'</td></tr>';
+setResultUnit('ls');show('result')
+}
+function setResultUnit(u){
+resultUnit=u;
+document.querySelectorAll('.saveUnit').forEach(x=>x.classList.remove('sel'));
+$(u==='m3'?'ruM3':u==='ls'?'ruLs':'ruHr').classList.add('sel');
+if(!current)return;
+let val=u==='m3'?current.q:u==='ls'?current.qLs:current.qHr;
+$('selectedResult').textContent=u==='m3'?val.toFixed(4):val<10?val.toFixed(3):val.toFixed(2);
+$('selectedUnit').textContent=u==='m3'?'m³/s':u==='ls'?'L/s':'m³/jam';
+current.saveUnit=u
+}
+function data(){return JSON.parse(localStorage.getItem('imm_vnotch')||'[]')}
+function save(){if(!current)return;let a=data();a.unshift({...current});localStorage.setItem('imm_vnotch',JSON.stringify(a));toast('Data tersimpan dengan satuan '+(current.saveUnit==='m3'?'m³/s':current.saveUnit==='ls'?'L/s':'m³/jam'));populateLocations()}
+function renderHistory(){
+let s=($('search').value||'').toLowerCase(),a=data().filter(x=>(x.loc+' '+x.op+' '+x.date).toLowerCase().includes(s));
+$('hist').innerHTML=a.length?a.map(x=>{let u=x.saveUnit||'ls',v=u==='m3'?x.q:u==='hr'?x.qHr:x.qLs,us=u==='m3'?'m³/s':u==='hr'?'m³/jam':'L/s';return `<div class="card list"><div><b>${x.date} ${x.time}</b><br>${x.loc} • ${x.op}<br><span class="note">H: ${x.H} cm | ${x.ng} pintu</span></div><div><b>${fmt(v)} ${us}</b><br><button class="danger" onclick="del(${x.id})">Hapus</button></div></div>`}).join(''):'<div class="card note">Belum ada data tersimpan.</div>'
+}
+function del(id){localStorage.setItem('imm_vnotch',JSON.stringify(data().filter(x=>x.id!==id)));renderHistory();populateLocations();renderGraph();toast('Data dihapus')}
+function setUnit(u){unit=u;document.querySelectorAll('.unitTabs button').forEach(x=>x.classList.remove('sel'));$(u==='m3'?'uM3':u==='ls'?'uLs':'uHr').classList.add('sel');renderGraph()}
+function populateLocations(){
+let sel=$('filterLoc'),old=sel.value||'all',locs=[...new Set(data().map(x=>x.loc).filter(Boolean))].sort();
+sel.innerHTML='<option value="all">Semua Lokasi</option>'+locs.map(x=>`<option value="${escapeHtml(x)}">${escapeHtml(x)}</option>`).join('');
+sel.value=locs.includes(old)?old:'all'
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function filteredData(){
+let a=data(),loc=$('filterLoc').value||'all',range=$('range').value;
+if(loc!=='all')a=a.filter(x=>x.loc===loc);
+if(range==='custom'){
+let from=$('fromDate').value,to=$('toDate').value;
+if(from)a=a.filter(x=>x.date>=from);if(to)a=a.filter(x=>x.date<=to)
+}else if(range!=='all'){
+let days=+range,cut=new Date();cut.setHours(0,0,0,0);cut.setDate(cut.getDate()-(days-1));let iso=cut.toISOString().slice(0,10);a=a.filter(x=>x.date>=iso)
+}
+return a.sort((a,b)=>(a.date+' '+a.time).localeCompare(b.date+' '+b.time))
+}
+function renderGraph(){
+let range=$('range').value;$('customDates').style.display=range==='custom'?'grid':'none';
+let a=filteredData(),c=$('chart'),ctx=c.getContext('2d'),W=c.width,H=c.height;
+ctx.clearRect(0,0,W,H);
+let left=112,right=28,topPad=38,bottom=58,plotH=H-topPad-bottom,plotW=W-left-right;
+let unitLabel=unit==='m3'?'m³/s':unit==='ls'?'L/s':'m³/jam';
+ctx.strokeStyle='#d9e9f7';ctx.lineWidth=1;ctx.font='16px Arial';ctx.fillStyle='#54718f';ctx.textAlign='right';
+if(!a.length){
+  for(let i=0;i<=5;i++){let y=topPad+i*plotH/5;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(W-right,y);ctx.stroke()}
+  ctx.textAlign='center';ctx.fillStyle='#6b87a0';ctx.font='22px Arial';ctx.fillText('Belum ada data',W/2,H/2);
+  ['avg','mx','mn','cnt'].forEach(x=>$(x).textContent='0');return
+}
+let vals=a.map(x=>unit==='m3'?Number(x.q):unit==='ls'?Number(x.qLs):Number(x.qHr));
+let maxVal=Math.max(...vals,0), minVal=Math.min(...vals,0);
+let topValue=maxVal<=0?1:maxVal*1.15;
+let avg=vals.reduce((s,v)=>s+v,0)/vals.length;
+// Grid + Y-axis labels
+for(let i=0;i<=5;i++){
+  let y=topPad+i*plotH/5;
+  let v=topValue-(topValue*i/5);
+  ctx.strokeStyle='#d9e9f7';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(W-right,y);ctx.stroke();
+  ctx.fillStyle='#54718f';ctx.font='16px Arial';ctx.textAlign='right';
+  let label=unit==='m3'?v.toFixed(4):unit==='ls'?v.toFixed(2):v.toFixed(2);
+  ctx.fillText(label,left-10,y+5);
+  ctx.font='11px Arial';ctx.fillStyle='#6b87a0';ctx.fillText(unitLabel,left-10,y+20);
+}
+// Y-axis title
+ctx.save();ctx.translate(18,topPad+plotH/2);ctx.rotate(-Math.PI/2);ctx.fillStyle='#123d73';ctx.font='bold 16px Arial';ctx.textAlign='center';ctx.fillText('Nilai Debit ('+unitLabel+')',0,0);ctx.restore();
+// X-axis baseline
+ctx.strokeStyle='#7891a8';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(left,topPad+plotH);ctx.lineTo(W-right,topPad+plotH);ctx.stroke();
+// Line
+ctx.strokeStyle='#0876e5';ctx.lineWidth=5;ctx.beginPath();
+a.forEach((x,i)=>{let px=left+i*plotW/Math.max(a.length-1,1),py=topPad+plotH-(vals[i]/topValue)*plotH;i?ctx.lineTo(px,py):ctx.moveTo(px,py)});ctx.stroke();
+// Points + value labels + dates
+ctx.textAlign='center';
+a.forEach((x,i)=>{
+  let px=left+i*plotW/Math.max(a.length-1,1),py=topPad+plotH-(vals[i]/topValue)*plotH;
+  ctx.fillStyle='#0876e5';ctx.beginPath();ctx.arc(px,py,7,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#0759a8';ctx.font='bold 16px Arial';
+  let valLabel=unit==='m3'?vals[i].toFixed(4):vals[i].toFixed(2);
+  ctx.fillText(valLabel,px,Math.max(18,py-13));
+  ctx.fillStyle='#54718f';ctx.font='13px Arial';ctx.fillText(x.date.slice(8),px,H-22);
+});
+$('avg').textContent=fmt(avg);$('mx').textContent=fmt(Math.max(...vals));$('mn').textContent=fmt(Math.min(...vals));$('cnt').textContent=a.length
+}
+function fmt(n){return n<1?n.toFixed(4):n.toFixed(2)}
+function escPdf(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function pdfEscape(v){return String(v??'').replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)').replace(/\r?\n/g,' ')}
+function makeSimplePDF(rows,current,b){
+  const W=595, H=842, margin=36, usable=523;
+  let pages=[], cmds=[], y=H-40;
+  const text=(x,yy,size,str,bold=false)=>{cmds.push(`BT /${bold?'F2':'F1'} ${size} Tf ${x} ${yy} Td (${pdfEscape(str)}) Tj ET`)};
+  const line=(x1,y1,x2,y2)=>cmds.push(`${x1} ${y1} m ${x2} ${y2} l S`);
+  const rect=(x,yy,w,h,fill=false)=>cmds.push(`${fill?'0.94 0.97 1 rg':'0 0 0 RG'} ${x} ${yy} ${w} ${h} re ${fill?'f':'S'}`);
+  function header(){
+    y=H-40; text(margin,y,20,'IMM',true); text(margin,y-15,8,b.tagline||'Air Terukur, Lingkungan Terjaga');
+    text(355,y,13,'LAPORAN PENGUKURAN',true); text(355,y-17,13,'DEBIT V-NOTCH',true); line(margin,y-28,W-margin,y-28); y-=48;
+  }
+  function pageStart(){cmds=[];header()}
+  function finish(){pages.push(cmds.join('\n'))}
+  pageStart();
+  text(margin,y,10,'Informasi Pengukuran',true); y-=16;
+  const first=rows[rows.length-1]||current||{};
+  const info=[['Tanggal',first.date||'-'],['Jam',first.time||'-'],['Lokasi / Settling Pond',first.loc||'-'],['Operator',first.op||'-'],['Sudut V-Notch',(first.th??'-')+'°'],['H (cm)',first.H??'-'],['Cd',first.cd??'-'],['g',(first.g??'-')+' m/s²'],['Jumlah Pintu',first.ng??'-']];
+  let ix=0;
+  for(const [k,v] of info){let col=ix%2,row=Math.floor(ix/2),xx=margin+col*262,yy=y-row*38;rect(xx,yy-27,250,32,false);text(xx+7,yy-10,7,k,true);text(xx+7,yy-22,9,String(v));ix++}
+  y-=Math.ceil(info.length/2)*38+4;
+  if(current){
+    text(margin,y,10,'Hasil Perhitungan',true);y-=18;
+    const vals=[['Debit m³/s',Number(current.q||0).toFixed(4)],['Debit L/s',Number(current.qLs||0).toFixed(3)],['Debit m³/jam',Number(current.qHr||0).toFixed(3)]];
+    vals.forEach((v,i)=>{let xx=margin+i*174;rect(xx,y-42,165,36,true);text(xx+8,y-18,7,v[0],true);text(xx+8,y-34,12,v[1],true)});y-=55;
+  }
+  text(margin,y,10,'Rekap Data Pengukuran',true);y-=18;
+  const cols=[['No',26],['Tanggal',55],['Jam',40],['Lokasi',88],['H',35],['Pintu',35],['m³/s',52],['L/s',52],['m³/jam',70]];
+  function tableHeader(){let x=margin;cols.forEach(([k,w])=>{rect(x,y-17,w,17,true);text(x+3,y-11,6,k,true);x+=w});y-=17}
+  tableHeader();
+  rows.forEach((r,i)=>{
+    if(y<70){finish();pageStart();text(margin,y,10,'Rekap Data Pengukuran (lanjutan)',true);y-=18;tableHeader()}
+    let vals=[i+1,r.date||'',r.time||'',r.loc||'',r.H||'',r.ng||'',Number(r.q||0).toFixed(4),Number(r.qLs||0).toFixed(3),Number(r.qHr||0).toFixed(3)];
+    let x=margin; cols.forEach(([,w],j)=>{rect(x,y-15,w,15,false);text(x+3,y-10,5.7,String(vals[j]).slice(0,20));x+=w});y-=15;
+  });
+  y-=18;text(margin,y,7,'Catatan: Data berasal dari histori pengukuran yang tersimpan pada perangkat. Verifikasi H, kondisi V-Notch, dan Cd sebelum digunakan sebagai laporan resmi.');
+  y-=28;line(margin,y,W-margin,y);y-=12;text(margin,y,8,'Operator / Pengukur',false);text(390,y,8,'Supervisor / Pemeriksa',false);y-=35;text(margin,y,8,'(________________________)',false);text(390,y,8,'(________________________)',false);
+  finish();
+  const objs=[];const add=o=>{objs.push(o);return objs.length};
+  add(''); // 1 placeholder
+  const catalog={};
+  const font1=add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>');
+  const font2=add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>');
+  const pageNums=[]; const contentNums=[];
+  pages.forEach((content,pi)=>{const cnum=add(`<< /Length ${content.length} >>\nstream\n${content}\nendstream`);contentNums.push(cnum);const pnum=add(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${W} ${H}] /Resources << /Font << /F1 ${font1} 0 R /F2 ${font2} 0 R >> >> /Contents ${cnum} 0 R >>`);pageNums.push(pnum)});
+  objs[0]=`<< /Type /Catalog /Pages 2 0 R >>`;
+  objs[1]=`<< /Type /Pages /Kids [${pageNums.map(n=>n+' 0 R').join(' ')}] /Count ${pageNums.length} >>`;
+  let pdf='%PDF-1.4\n', offsets=[0];
+  for(let i=0;i<objs.length;i++){offsets[i+1]=pdf.length;pdf+=`${i+1} 0 obj\n${objs[i]}\nendobj\n`}
+  const xref=pdf.length;pdf+=`xref\n0 ${objs.length+1}\n0000000000 65535 f \n`;for(let i=1;i<offsets.length;i++)pdf+=String(offsets[i]).padStart(10,'0')+' 00000 n \n';pdf+=`trailer\n<< /Size ${objs.length+1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;
+  return new Blob([pdf],{type:'application/pdf'});
+}
+function exportPDF(){
+  const a=data();
+  const rows=a.length?a:(current?[current]:[]);
+  if(!rows.length){toast('Belum ada data untuk PDF');return}
+  const b=getBrand();
+  const first=rows[rows.length-1]||{};
+  const esc=v=>String(v??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));
+  const q=Number(first.q||0), qLs=Number(first.qLs||0), qHr=Number(first.qHr||0);
+  const html=`<!doctype html><html><head><meta charset="utf-8"><title>IMM V-Notch - Laporan</title>
+  <style>
+  @page{size:A4;margin:14mm}*{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#163b63;margin:0;font-size:12px}
+  .head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #087bd1;padding-bottom:10px;margin-bottom:18px}
+  .brand{font-size:24px;font-weight:800}.tag{font-size:10px;color:#6b8196;margin-top:3px}.title{text-align:right;font-size:16px;font-weight:800;line-height:1.35}
+  h2{font-size:13px;margin:16px 0 8px;color:#075a9f}.grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.item{border:1px solid #c9dceb;border-radius:6px;padding:7px}.label{font-size:9px;color:#6b8196}.value{font-weight:700;margin-top:2px;color:#173d63}
+  .results{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.result{border:1px solid #b9d8ef;border-radius:7px;padding:10px;text-align:center;background:#f5fbff}.result .label{font-size:9px}.result strong{display:block;font-size:16px;color:#08764f;margin-top:5px}
+  table{width:100%;border-collapse:collapse;font-size:9px}th,td{border:1px solid #bfd1df;padding:5px;text-align:center}th{background:#eaf5fc;color:#124f80}td:nth-child(4){text-align:left}
+  .sign{display:grid;grid-template-columns:1fr 1fr;gap:50px;margin-top:42px}.sig{text-align:center;border-top:1px solid #667784;padding-top:6px;min-height:42px}.note{font-size:8px;color:#71879a;margin-top:15px}
+  .actions{position:sticky;top:0;background:white;padding:8px 0;text-align:right}.actions button{padding:9px 14px;border:0;border-radius:6px;background:#087bd1;color:white;font-weight:700}.actions .hint{float:left;color:#667784;font-size:10px;padding-top:8px}
+  @media print{.actions{display:none}}
+  </style></head><body>
+  <div class="actions"><span class="hint">Laporan siap dicetak / disimpan sebagai PDF</span><button onclick="window.print()">Simpan / Cetak PDF</button></div>
+  <div class="head"><div><div class="brand">IMM</div><div class="tag">${esc(b.tagline||'Air Terukur, Lingkungan Terjaga')}</div></div><div class="title">LAPORAN PENGUKURAN<br>DEBIT V-NOTCH</div></div>
+  <h2>Informasi Pengukuran</h2><div class="grid">
+  <div class="item"><div class="label">Tanggal</div><div class="value">${esc(first.date||'-')}</div></div>
+  <div class="item"><div class="label">Jam</div><div class="value">${esc(first.time||'-')}</div></div>
+  <div class="item"><div class="label">Lokasi / Settling Pond</div><div class="value">${esc(first.loc||'-')}</div></div>
+  <div class="item"><div class="label">Operator</div><div class="value">${esc(first.op||'-')}</div></div>
+  <div class="item"><div class="label">Sudut V-Notch</div><div class="value">${esc(first.th??'-')}°</div></div>
+  <div class="item"><div class="label">H (cm)</div><div class="value">${esc(first.H??'-')}</div></div>
+  <div class="item"><div class="label">Cd</div><div class="value">${esc(first.cd??'-')}</div></div>
+  <div class="item"><div class="label">g</div><div class="value">${esc(first.g??'-')} m/s²</div></div>
+  <div class="item"><div class="label">Jumlah Pintu</div><div class="value">${esc(first.ng??'-')}</div></div></div>
+  <h2>Hasil Perhitungan</h2><div class="results">
+  <div class="result"><div class="label">Debit m³/s</div><strong>${q.toFixed(4)}</strong></div>
+  <div class="result"><div class="label">Debit L/s</div><strong>${qLs.toFixed(3)}</strong></div>
+  <div class="result"><div class="label">Debit m³/jam</div><strong>${qHr.toFixed(3)}</strong></div></div>
+  <h2>Rekap Data Pengukuran</h2><table><thead><tr><th>No</th><th>Tanggal</th><th>Jam</th><th>Lokasi</th><th>H</th><th>Pintu</th><th>m³/s</th><th>L/s</th><th>m³/jam</th></tr></thead><tbody>
+  ${rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.date)}</td><td>${esc(r.time)}</td><td>${esc(r.loc)}</td><td>${esc(r.H)}</td><td>${esc(r.ng)}</td><td>${Number(r.q||0).toFixed(4)}</td><td>${Number(r.qLs||0).toFixed(3)}</td><td>${Number(r.qHr||0).toFixed(3)}</td></tr>`).join('')}
+  </tbody></table>
+  <div class="note">Catatan: Data berasal dari histori pengukuran yang tersimpan pada perangkat. Verifikasi H, kondisi V-Notch, dan Cd sebelum digunakan sebagai laporan resmi.</div>
+  <div class="sign"><div class="sig">Operator / Pengukur<br><br>(________________________)</div><div class="sig">Supervisor / Pemeriksa<br><br>(________________________)</div></div>
+  <script>setTimeout(()=>window.print(),500)<\/script></body></html>`;
+  const w=window.open('','_blank');
+  if(!w){toast('Popup diblokir. Izinkan popup untuk aplikasi ini.');return}
+  w.document.open();w.document.write(html);w.document.close();
+}
+
+function exportCSV(){
+let a=data();if(!a.length){toast('Belum ada data');return}
+let h=['Tanggal','Jam','Lokasi','Operator','Sudut','H (cm)','Cd','g','Jumlah Pintu','Debit m3/s','Debit L/s','Debit m3/jam','Satuan Dipilih'];
+let rows=a.map(x=>[x.date,x.time,x.loc,x.op,x.th,x.H,x.cd,x.g,x.ng,x.q,x.qLs,x.qHr,x.saveUnit==='m3'?'m³/s':x.saveUnit==='hr'?'m³/jam':'L/s']);
+let csv='\ufeff'+[h,...rows].map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(';')).join('\r\n'),u=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),ael=document.createElement('a');ael.href=u;ael.download='IMM_VNotch_Histori.csv';ael.click();URL.revokeObjectURL(u);toast('CSV dibuat')
+}
+
+function getBrand(){return JSON.parse(localStorage.getItem('imm_brand')||'null')||{logo:'text',logoData:'',tagline:'Air Terukur, Lingkungan Terjaga',appTitle:'V-Notch Calculator'}}
+function applyBrand(){
+  const b=getBrand();
+  const title=b.appTitle||'V-Notch Calculator';
+  const tagline=b.tagline||'Air Terukur, Lingkungan Terjaga';
+  $('title').textContent=titles.home=title;
+
+  // Header: always rebuild it from the currently saved branding.
+  const header=$('headerLogo');
+  if(header){
+    header.className='logo';
+    header.innerHTML='';
+    if(b.logoData){
+      const img=document.createElement('img');
+      img.className='headerLogoImg';
+      img.src=b.logoData;
+      img.onload=()=>{img.style.display='block'};
+      img.alt='Logo aplikasi';
+      header.appendChild(img);
+    }else{
+      const mark=document.createElement('div');
+      mark.textContent=b.logo==='water'?'💧 IMM':b.logo==='circle'?'◢ IMM':'IMM';
+      mark.style.fontWeight='900';
+      mark.style.fontSize='25px';
+      header.appendChild(mark);
+    }
+    const sm=document.createElement('small');
+    sm.textContent=tagline;
+    header.appendChild(sm);
+  }
+
+  document.querySelectorAll('.logo small').forEach(x=>x.textContent=tagline);
+  const logoMark=b.logo==='water'?'💧 IMM':b.logo==='circle'?'◢ IMM':'IMM';
+  const hero=$('.heroLogo');
+  if(hero) hero.innerHTML=b.logoData?`<img class="settingsLogo" src="${b.logoData}" alt="Logo aplikasi">`:logoMark;
+  const pv=$('logoPreview');
+  if(pv) pv.innerHTML=b.logoData?`<img class="settingsLogo" src="${b.logoData}" alt="Logo aplikasi">`:logoMark;
+  if($('taglineInput'))$('taglineInput').value=b.tagline;
+  if($('appTitleInput'))$('appTitleInput').value=b.appTitle;
+  document.querySelectorAll('.logoChoice').forEach(x=>x.classList.remove('sel'));
+  const btn=b.logo==='water'?'logoWaterBtn':b.logo==='circle'?'logoCircleBtn':'logoTextBtn';
+  if($(btn))$(btn).classList.add('sel');
+}
+function chooseLogo(type){let b=getBrand();b.logo=type;b.logoData='';localStorage.setItem('imm_brand',JSON.stringify(b));applyBrand();toast('Logo dipilih')}
+function uploadLogo(e){let f=e.target.files&&e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{let b=getBrand();b.logo='custom';b.logoData=r.result;localStorage.setItem('imm_brand',JSON.stringify(b));applyBrand();toast('Logo berhasil diganti')};r.readAsDataURL(f)}
+function removeLogo(){let b=getBrand();b.logo='text';b.logoData='';localStorage.setItem('imm_brand',JSON.stringify(b));applyBrand();toast('Logo dikembalikan')}
+function saveBranding(){let b=getBrand();b.tagline=$('taglineInput').value.trim()||'Air Terukur, Lingkungan Terjaga';b.appTitle=$('appTitleInput').value.trim()||'V-Notch Calculator';localStorage.setItem('imm_brand',JSON.stringify(b));applyBrand();$('title').textContent=b.appTitle;toast('Pengaturan berhasil disimpan')}
+applyBrand();show('home');
+</script><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=20", {updateViaCache:"none"}).catch(()=>{}));}</script><script>
+(async()=>{try{if("serviceWorker" in navigator){const regs=await navigator.serviceWorker.getRegistrations();for(const r of regs){try{await r.update()}catch(e){}}}if(location.search.includes("refresh=1")){location.replace(location.pathname+location.hash)}}catch(e){}})();
+</script></body></html>
