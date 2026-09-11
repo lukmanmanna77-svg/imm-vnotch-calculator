@@ -51,21 +51,21 @@
 <div class="card"><h3>Grafik Debit</h3>
 <div class="filters">
 <div class="field"><label>Rentang Data</label><select id="range" onchange="renderGraph()"><option value="7">7 Hari Terakhir</option><option value="30" selected>30 Hari Terakhir</option><option value="90">90 Hari Terakhir</option><option value="all">Semua Data</option><option value="custom">Pilih Tanggal</option></select></div>
-<div class="field"><label>Lokasi</label><select id="filterLoc" onchange="renderGraph()"><option value="all">Semua Lokasi</option></select></div>
+<div class="field"><label>Lokasi</label><select id="filterLoc" onchange="renderGraph();syncExportLocationFromGraph()"><option value="all">Semua Lokasi</option></select></div>
 </div>
 <div id="customDates" class="filters" style="display:none;margin-top:8px"><div class="field"><label>Dari</label><input id="fromDate" type="date" onchange="renderGraph()"></div><div class="field"><label>Sampai</label><input id="toDate" type="date" onchange="renderGraph()"></div></div>
 <div class="unitTabs"><button id="uM3" onclick="setUnit('m3')">m³/s</button><button id="uLs" class="sel" onclick="setUnit('ls')">L/s</button><button id="uHr" onclick="setUnit('hr')">m³/jam</button></div>
 <div class="chartBox"><canvas id="chart" width="900" height="460"></canvas></div></div>
 <div class="card"><h3>Rekap Data</h3><div class="stats"><div class="stat"><b id="avg">0</b><small>Rata-rata</small></div><div class="stat"><b id="mx">0</b><small>Maksimum</small></div><div class="stat"><b id="mn">0</b><small>Minimum</small></div><div class="stat"><b id="cnt">0</b><small>Jumlah Data</small></div></div></div>
 </section>
-<section id="export" class="screen"><div class="card"><h3>Pilih Format Export</h3><button class="list" onclick="exportCSV()">📗 &nbsp;<b>Export ke Excel / CSV</b><span class="arrow">›</span></button><br><button class="list" onclick="exportPDF()">📕 &nbsp;<b>Export ke PDF</b><span class="arrow">›</span></button></div><div class="card note">CSV dapat dibuka dengan Microsoft Excel. Untuk PDF pilih <b>Save as PDF</b>. Data tersimpan di perangkat dan aplikasi dapat digunakan offline.</div></section>
+<section id="export" class="screen"><div class="card"><h3>Lokasi Data yang Akan Di-Export</h3><div class="field"><label>Lokasi / Settling Pond</label><select id="exportLoc" onchange="saveExportLocation()"><option value="all">Semua Lokasi</option></select></div><div class="note">Lokasi otomatis mengikuti pilihan pada menu <b>Grafik</b>. Anda juga dapat menggantinya di sini sebelum Export.</div></div><div class="card"><h3>Pilih Format Export</h3><button class="list" onclick="exportCSV()">📗 &nbsp;<b>Export ke Excel / CSV</b><span class="arrow">›</span></button><br><button class="list" onclick="exportPDF()">📕 &nbsp;<b>Export ke PDF</b><span class="arrow">›</span></button></div><div class="card note">CSV dapat dibuka dengan Microsoft Excel. Untuk PDF pilih <b>Save as PDF</b>. Data tersimpan di perangkat dan aplikasi dapat digunakan offline.</div></section>
 <section id="settings" class="screen"><div class="card"><h3>Logo Aplikasi</h3><div class="previewLogo" id="logoPreview">IMM</div><div class="logoChoices"><button class="logoChoice sel" id="logoTextBtn" onclick="chooseLogo('text')">IMM</button><button class="logoChoice" id="logoWaterBtn" onclick="chooseLogo('water')">💧 IMM</button><button class="logoChoice" id="logoCircleBtn" onclick="chooseLogo('circle')">◢ IMM</button></div><div class="field" style="margin-top:10px"><label>Upload logo sendiri</label><input id="logoFile" type="file" accept="image/*" onchange="uploadLogo(event)"><div class="settingsHint">Logo akan tersimpan di perangkat ini.</div></div><button class="btn secondary" style="width:100%;margin-top:8px" onclick="removeLogo()">↺ Kembalikan logo IMM</button></div><div class="card"><h3>Edit tulisan di bawah logo</h3><div class="field"><label>Tulisan bawah logo</label><input id="taglineInput" maxlength="80" placeholder="Air Terukur, Lingkungan Terjaga"></div><div class="field"><label>Judul aplikasi</label><input id="appTitleInput" maxlength="50" placeholder="V-Notch Calculator"></div><div class="field"><label>Judul lokasi laporan PDF</label><input id="reportLocationTitle" maxlength="60" placeholder="SP-17"></div><div class="field"><label>Garis baku mutu / referensi grafik (m³/s)</label><input id="referenceValue" type="number" step="0.0001" min="0" placeholder="Kosongkan jika tidak digunakan"></div><div class="field"><label>Label garis referensi</label><input id="referenceLabel" maxlength="40" placeholder="Baku Mutu / Referensi"></div><button class="btn primary" style="width:100%" onclick="saveBranding()">💾 Simpan Pengaturan</button></div><div class="card note">Judul lokasi dan garis referensi tersimpan di browser/HP secara offline. Garis referensi pada grafik debit menggunakan satuan <b>m³/s</b>.</div></section><section id="guide" class="screen"><div class="card"><h3>Panduan Penggunaan</h3><ol class="note" style="line-height:2"><li>Isi tanggal, jam, lokasi dan operator.</li><li>Masukkan H dalam cm.</li><li>Pilih sudut V-Notch, Cd, g dan jumlah pintu.</li><li>Tekan Hitung Debit.</li><li>Simpan hasil ke Histori.</li><li>Pada Grafik pilih <b>m³/s, L/s, atau m³/jam</b>.</li><li>Gunakan Export untuk CSV atau PDF.</li></ol></div></section></main><div id="pdfReport"></div>
 <nav class="bottom"><button onclick="show('home')" id="nHome"><b>⌂</b>Beranda</button><button onclick="show('history')" id="nHistory"><b>◷</b>Histori</button><button onclick="show('graph')" id="nGraph"><b>▥</b>Grafik</button><button onclick="show('export')" id="nExport"><b>⇩</b>Export</button><button onclick="show('settings')" id="nSettings"><b>⚙</b>Pengaturan</button></nav><div id="toast" class="toast"></div></div>
 <script>
 let current=null,unit='ls',resultUnit='ls',$=id=>document.getElementById(id),d=new Date();
 $('date').value=d.toISOString().slice(0,10);$('time').value=d.toTimeString().slice(0,5);
 const titles={home:'V-Notch Calculator',calc:'Hitung Debit',result:'Hasil Perhitungan',history:'Histori Data',graph:'Grafik Debit',export:'Export Data',guide:'Panduan',settings:'Pengaturan'};
-function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');$('title').textContent=titles[id];$('back').style.visibility=id==='home'?'hidden':'visible';document.querySelectorAll('.bottom button').forEach(x=>x.classList.remove('on'));let n={home:'nHome',history:'nHistory',graph:'nGraph',export:'nExport',guide:null,settings:'nSettings'}[id];if(n)$(n).classList.add('on');applyBrand();if(id==='history')renderHistory();if(id==='graph'){populateLocations();renderGraph()}}
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');$('title').textContent=titles[id];$('back').style.visibility=id==='home'?'hidden':'visible';document.querySelectorAll('.bottom button').forEach(x=>x.classList.remove('on'));let n={home:'nHome',history:'nHistory',graph:'nGraph',export:'nExport',guide:null,settings:'nSettings'}[id];if(n)$(n).classList.add('on');applyBrand();if(id==='history')renderHistory();if(id==='graph'){populateLocations();renderGraph()}if(id==='export'){populateExportLocations();syncExportLocationFromGraph()}}
 function home(){show('home')}
 function toast(t){let x=$('toast');x.textContent=t;x.style.display='block';setTimeout(()=>x.style.display='none',1600)}
 function resetForm(){['loc','op','h'].forEach(x=>$(x).value='');$('theta').value='90';$('cd').value='1.50';$('g').value='9.8';$('gates').value='1';toast('Form direset')}
@@ -102,6 +102,19 @@ let sel=$('filterLoc'),old=sel.value||'all',locs=[...new Set(data().map(x=>x.loc
 sel.innerHTML='<option value="all">Semua Lokasi</option>'+locs.map(x=>`<option value="${escapeHtml(x)}">${escapeHtml(x)}</option>`).join('');
 sel.value=locs.includes(old)?old:'all'
 }
+function populateExportLocations(){
+  const sel=$('exportLoc'); if(!sel)return;
+  const old=sel.value||localStorage.getItem('imm_export_location')||'all';
+  const locs=[...new Set(data().map(x=>x.loc).filter(Boolean))].sort();
+  sel.innerHTML='<option value="all">Semua Lokasi</option>'+locs.map(x=>`<option value="${escapeHtml(x)}">${escapeHtml(x)}</option>`).join('');
+  sel.value=locs.includes(old)?old:'all';
+}
+function syncExportLocationFromGraph(){
+  const g=$('filterLoc')?.value||'all', sel=$('exportLoc'); if(!sel)return;
+  if(g!=='all'){sel.value=g;localStorage.setItem('imm_export_location',g)}
+  else {const saved=localStorage.getItem('imm_export_location')||'all';sel.value=[...sel.options].some(o=>o.value===saved)?saved:'all'}
+}
+function saveExportLocation(){const v=$('exportLoc')?.value||'all';localStorage.setItem('imm_export_location',v)}
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function normalizeLoc(v){return String(v??'').replace(/\s+/g,' ').trim().toLowerCase()}
 function filteredData(){
@@ -221,13 +234,13 @@ function exportPDF(){
   const allRows=data();
   if(!allRows.length){toast('Belum ada data untuk PDF');return}
   const b=getBrand();
-  const configuredLocation=(b.reportLocationTitle||'').trim();
-  const requestedLocation=normalizeLoc(configuredLocation);
-  const locationRows=requestedLocation ? allRows.filter(r=>normalizeLoc(r.loc)===requestedLocation) : [];
-  const fallbackLocation=String(allRows[allRows.length-1].loc||'-').trim();
-  const reportLocation=(locationRows.length ? String(locationRows[0].loc).trim() : (configuredLocation || fallbackLocation)).trim();
-  const rows=locationRows.length ? locationRows : allRows.filter(r=>normalizeLoc(r.loc)===normalizeLoc(fallbackLocation));
-  const first=rows[rows.length-1]||allRows[allRows.length-1]||{};
+  const exportSelection=String($('exportLoc')?.value || localStorage.getItem('imm_export_location') || 'all').trim();
+  const requestedLocation=normalizeLoc(exportSelection);
+  const rows=requestedLocation && requestedLocation!=='all' ? allRows.filter(r=>normalizeLoc(r.loc)===requestedLocation) : allRows.slice();
+  if(!rows.length){toast('Tidak ada data untuk lokasi yang dipilih');return}
+  const reportLocation=requestedLocation && requestedLocation!=='all' ? String(rows[0].loc).trim() : 'Semua Lokasi';
+  rows.sort((a,b)=>(a.date+' '+a.time).localeCompare(b.date+' '+b.time));
+  const first=rows[rows.length-1]||rows[0]||{};
   
   const esc=v=>String(v??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));
   const now=new Date();
@@ -297,6 +310,9 @@ function exportPDF(){
 
 function exportCSV(){
 let a=data();if(!a.length){toast('Belum ada data');return}
+let exportSelection=String($('exportLoc')?.value || localStorage.getItem('imm_export_location') || 'all').trim(),target=normalizeLoc(exportSelection);
+if(target && target!=='all')a=a.filter(x=>normalizeLoc(x.loc)===target);
+if(!a.length){toast('Tidak ada data untuk lokasi yang dipilih');return}
 let h=['Tanggal','Jam','Lokasi','Operator','Sudut','H (cm)','Cd','g','Jumlah Pintu','Debit m3/s','Debit L/s','Debit m3/jam','Satuan Dipilih'];
 let rows=a.map(x=>[x.date,x.time,x.loc,x.op,x.th,x.H,x.cd,x.g,x.ng,x.q,x.qLs,x.qHr,x.saveUnit==='m3'?'m³/s':x.saveUnit==='hr'?'m³/jam':'L/s']);
 let csv='\ufeff'+[h,...rows].map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(';')).join('\r\n'),u=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),ael=document.createElement('a');ael.href=u;ael.download='IMM_VNotch_Histori.csv';ael.click();URL.revokeObjectURL(u);toast('CSV dibuat')
