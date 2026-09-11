@@ -103,9 +103,10 @@ sel.innerHTML='<option value="all">Semua Lokasi</option>'+locs.map(x=>`<option v
 sel.value=locs.includes(old)?old:'all'
 }
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function normalizeLoc(v){return String(v??'').replace(/\s+/g,' ').trim().toLowerCase()}
 function filteredData(){
 let a=data(),loc=$('filterLoc').value||'all',range=$('range').value;
-if(loc!=='all')a=a.filter(x=>x.loc===loc);
+if(loc!=='all'){const target=normalizeLoc(loc);a=a.filter(x=>normalizeLoc(x.loc)===target);}
 if(range==='custom'){
 let from=$('fromDate').value,to=$('toDate').value;
 if(from)a=a.filter(x=>x.date>=from);if(to)a=a.filter(x=>x.date<=to)
@@ -217,11 +218,16 @@ function makeSimplePDF(rows,current,b){
   return new Blob([pdf],{type:'application/pdf'});
 }
 function exportPDF(){
-  const rows=data();
-  if(!rows.length){toast('Belum ada data untuk PDF');return}
+  const allRows=data();
+  if(!allRows.length){toast('Belum ada data untuk PDF');return}
   const b=getBrand();
-  const first=rows[rows.length-1]||{};
-  const reportLocation=(b.reportLocationTitle||first.loc||'-').trim();
+  const configuredLocation=(b.reportLocationTitle||'').trim();
+  const requestedLocation=normalizeLoc(configuredLocation);
+  const locationRows=requestedLocation ? allRows.filter(r=>normalizeLoc(r.loc)===requestedLocation) : [];
+  const fallbackLocation=String(allRows[allRows.length-1].loc||'-').trim();
+  const reportLocation=(locationRows.length ? String(locationRows[0].loc).trim() : (configuredLocation || fallbackLocation)).trim();
+  const rows=locationRows.length ? locationRows : allRows.filter(r=>normalizeLoc(r.loc)===normalizeLoc(fallbackLocation));
+  const first=rows[rows.length-1]||allRows[allRows.length-1]||{};
   
   const esc=v=>String(v??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));
   const now=new Date();
@@ -263,7 +269,7 @@ function exportPDF(){
   ${rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.date)}</td><td>${esc(r.time)}</td><td>${esc(r.loc)}</td><td>${esc(r.op)}</td><td>${esc(r.ng)}</td><td>${Number(r.q||0).toFixed(4)}</td><td>${Number(r.qLs||0).toFixed(3)}</td><td>${Number(r.qHr||0).toFixed(3)}</td></tr>`).join('')}
   </tbody></table>
   <h2>Grafik Debit V-Notch</h2><div class="chartWrap"><svg id="pdfChart" viewBox="0 0 760 300" preserveAspectRatio="none"></svg></div>
-  <div class="note">Catatan: Jam pada Informasi Pengukuran adalah waktu saat PDF dicetak. Rekap memuat seluruh data pengukuran yang tersimpan pada perangkat; H (cm) tidak ditampilkan pada laporan. Nilai minimum, rata-rata, dan maksimum dihitung dari kolom debit m³/s pada rekap yang dicetak. Grafik menampilkan seluruh data debit dari rekap pengukuran yang dicetak.</div>
+  <div class="note">Catatan: Jam pada Informasi Pengukuran adalah waktu saat PDF dicetak. Rekap memuat data pengukuran untuk lokasi laporan yang dipilih; H (cm) tidak ditampilkan pada Informasi Pengukuran. Nilai minimum, rata-rata, dan maksimum dihitung dari kolom debit m³/s pada rekap yang dicetak. Grafik menampilkan hanya data debit dari lokasi yang sama dengan rekap pengukuran yang dicetak.</div>
   <div class="sign"><div class="sig">Operator / Pengukur<br><br>(________________________)</div><div class="sig">Supervisor / Pemeriksa<br><br>(________________________)</div></div>
   <script>
   const svg=document.getElementById('pdfChart');
