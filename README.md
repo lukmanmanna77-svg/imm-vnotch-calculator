@@ -1,49 +1,94 @@
-# IMM V-Notch Calculator
+# 💧 IMM Water Monitoring System
 
-## 💧 Aplikasi Perhitungan Debit V-Notch
+Aplikasi PWA untuk **perhitungan debit air menggunakan metode V-Notch** dan **monitoring pH air** secara praktis, akurat, serta dapat digunakan secara offline.
 
-Aplikasi PWA untuk menghitung debit air menggunakan metode V-Notch secara praktis, akurat, dan dapat digunakan secara offline.
+> **Air Terukur, Lingkungan Terjaga**
 
-### 🚀 Buka Aplikasi
+## 🚀 Buka Aplikasi
 
 👉 **[BUKA IMM V-NOTCH CALCULATOR](https://lukmanmanna77-svg.github.io/imm-vnotch-calculator/)**
 
-### 📊 Fitur
+Aplikasi dapat dibuka melalui HP maupun komputer dan dapat dipasang sebagai aplikasi PWA.
+
+## 📊 Fitur
 
 - Perhitungan debit V-Notch otomatis
 - Pilihan sudut V-Notch
-- Perhitungan multi-pintu
+- Perhitungan multi-pintu 1–3 pintu
+- Input dan monitoring **pH air**
 - Histori data pengukuran
 - Grafik debit
-- Debit minimum, rata-rata, dan maksimum
+- Grafik pH
+- Rekap debit minimum, rata-rata, dan maksimum
+- Rekap nilai pH
+- Filter data berdasarkan lokasi dan tanggal
 - Rekap data operator
 - Export PDF
-- Bisa digunakan di HP dan komputer
-- Mendukung penggunaan offline
-- Ikon aplikasi IMM V-Notch
+- Export Excel/CSV
+- Pilihan logo IMM / Banpu Heart
+- Dapat digunakan **offline**
+- PWA — dapat dipasang sebagai aplikasi di HP
+- Penyimpanan data lokal pada perangkat
 
-### 📱 Instal di HP
+## 🧮 Perhitungan V-Notch
 
-1. Buka link aplikasi menggunakan Google Chrome.
-2. Pilih **Install App / Tambahkan ke layar utama**.
-3. Aplikasi akan muncul sebagai ikon di layar HP.
-4. Aplikasi dapat digunakan seperti aplikasi biasa.
+Rumus yang digunakan:
 
-### 📐 Rumus V-Notch
-
-Perhitungan debit menggunakan rumus:
-
-**Q = Cd × (8/15) × √(2g) × tan(θ/2) × H⁵ᐟ²**
+`Q = Cd × (8/15) × √(2g) × tan(θ/2) × H^(5/2)`
 
 Keterangan:
 
-- **Q** = debit air (m³/s)
-- **Cd** = koefisien debit
-- **g** = percepatan gravitasi (m/s²)
-- **θ** = sudut V-Notch
-- **H** = tinggi muka air di atas dasar V-Notch (m)
+| Parameter | Keterangan |
+|---|---|
+| Q | Debit air (m³/s) |
+| Cd | Koefisien debit |
+| θ | Sudut V-Notch |
+| g | Percepatan gravitasi (m/s²) |
+| H | Tinggi muka air (m) |
 
----
+Untuk beberapa pintu, debit total dihitung dari debit per pintu dikalikan jumlah pintu.
 
-**IMM — Innovation • Monitoring • Management**  
-*For a Better Tomorrow*
+## 🧪 Monitoring pH
+
+Nilai pH dicatat bersama data pengukuran debit sehingga histori dapat digunakan untuk melihat hubungan antara waktu, lokasi, debit, operator, dan kondisi pH.
+
+**Catatan:** modul TSS belum termasuk dalam versi ini dan direncanakan sebagai pengembangan/project berikutnya.
+
+## 📱 Cara Menggunakan di HP
+
+1. Buka aplikasi melalui link di atas.
+2. Pilih **Hitung Debit**.
+3. Isi tanggal, jam, lokasi, dan nama operator.
+4. Masukkan parameter V-Notch.
+5. Masukkan nilai **pH air**.
+6. Tekan **Hitung Debit**.
+7. Periksa hasil debit dan pH.
+8. Tekan **Simpan** untuk memasukkan data ke histori.
+9. Gunakan menu **Grafik** untuk melihat tren.
+10. Gunakan **Export** untuk membuat CSV/PDF.
+
+### Memasang sebagai aplikasi
+
+Pada browser HP, pilih **Tambahkan ke layar utama / Install App** jika opsi tersebut tersedia.
+
+Setelah terpasang, aplikasi dapat dibuka melalui ikon di layar utama dan tetap dapat digunakan saat tidak ada internet.
+
+## 💾 Mode Offline
+
+Aplikasi menggunakan teknologi PWA dan penyimpanan lokal browser sehingga fungsi utama tetap dapat digunakan tanpa koneksi internet.
+
+Data yang dibuat saat offline tersimpan pada perangkat tersebut.
+
+## ☁️ Roadmap Online + Offline
+
+Pengembangan berikutnya diarahkan menjadi sistem monitoring terintegrasi:
+
+```text
+                 IMM WATER MONITORING
+                         │
+              ┌──────────┴──────────┐
+              │                     │
+           OFFLINE                ONLINE
+              │                     │
+        Data di HP            Database Online
+              │                     │
