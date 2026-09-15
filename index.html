@@ -65,7 +65,7 @@
 let current=null,unit='ls',resultUnit='ls',$=id=>document.getElementById(id),d=new Date();
 $('date').value=d.toISOString().slice(0,10);$('time').value=d.toTimeString().slice(0,5);
 const titles={home:'V-Notch Calculator',calc:'Hitung Debit',result:'Hasil Perhitungan',history:'Histori Data',graph:'Grafik Debit',export:'Export Data',guide:'Panduan',settings:'Pengaturan'};
-function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');$('title').textContent=titles[id];$('back').style.visibility=id==='home'?'hidden':'visible';document.querySelectorAll('.bottom button').forEach(x=>x.classList.remove('on'));let n={home:'nHome',history:'nHistory',graph:'nGraph',export:'nExport',guide:null,settings:'nSettings'}[id];if(n)$(n).classList.add('on');applyBrand();if(id==='history')renderHistory();if(id==='graph'){populateLocations();renderGraph()}if(id==='export'){populateExportLocations();toggleExportDates()}}
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');$('title').textContent=titles[id];$('back').style.visibility=id==='home'?'hidden':'visible';document.querySelectorAll('.bottom button').forEach(x=>x.classList.remove('on'));let n={home:'nHome',history:'nHistory',graph:'nGraph',export:'nExport',guide:null,settings:'nSettings'}[id];if(n)$(n).classList.add('on');if(id==='history')renderHistory();if(id==='graph'){populateLocations();renderGraph()}if(id==='export'){populateExportLocations();syncExportFromGraph()}}
 function home(){show('home')}
 function toast(t){let x=$('toast');x.textContent=t;x.style.display='block';setTimeout(()=>x.style.display='none',1600)}
 function resetForm(){['loc','op','h'].forEach(x=>$(x).value='');$('theta').value='90';$('cd').value='1.50';$('g').value='9.8';$('gates').value='1';toast('Form direset')}
@@ -115,8 +115,17 @@ let days=+range,cut=new Date();cut.setHours(0,0,0,0);cut.setDate(cut.getDate()-(
 }
 return a.sort((a,b)=>(a.date+' '+a.time).localeCompare(b.date+' '+b.time))
 }
+function syncExportFromGraph(){
+  const er=$('exportRange'),el=$('exportLoc'),ef=$('exportFromDate'),et=$('exportToDate');
+  if(er&&$('range')) er.value=$('range').value;
+  if(el&&$('filterLoc')) el.value=$('filterLoc').value||'all';
+  if(ef&&$('fromDate')) ef.value=$('fromDate').value||'';
+  if(et&&$('toDate')) et.value=$('toDate').value||'';
+  toggleExportDates();
+}
 function renderGraph(){
 let range=$('range').value;$('customDates').style.display=range==='custom'?'grid':'none';
+syncExportFromGraph();
 let a=filteredData(),c=$('chart'),ctx=c.getContext('2d'),W=c.width,H=c.height;
 ctx.clearRect(0,0,W,H);
 let left=112,right=28,topPad=38,bottom=58,plotH=H-topPad-bottom,plotW=W-left-right;
@@ -240,6 +249,6 @@ function uploadLogo(e){let f=e.target.files&&e.target.files[0];if(!f)return;let 
 function removeLogo(){let b=getBrand();b.logo='text';b.logoData='';localStorage.setItem('imm_brand',JSON.stringify(b));applyBrand();toast('Logo dikembalikan')}
 function saveBranding(){let b=getBrand();b.tagline=$('taglineInput').value.trim()||'Air Terukur, Lingkungan Terjaga';b.appTitle=$('appTitleInput').value.trim()||'V-Notch Calculator';b.reportLocationTitle=$('reportLocationTitle').value.trim();b.referenceValue=$('referenceValue').value.trim();b.referenceLabel=$('referenceLabel').value.trim()||'Baku Mutu / Referensi';localStorage.setItem('imm_brand',JSON.stringify(b));applyBrand();$('title').textContent=b.appTitle;renderGraph();toast('Pengaturan berhasil disimpan') }
 applyBrand();populateExportLocations();toggleExportDates();show('home');
-</script><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=70", {updateViaCache:"none"}).catch(()=>{}));}</script><script>
+</script><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=71", {updateViaCache:"none"}).catch(()=>{}));}</script><script>
 (async()=>{try{if("serviceWorker" in navigator){const regs=await navigator.serviceWorker.getRegistrations();for(const r of regs){try{await r.update()}catch(e){}}}if(location.search.includes("refresh=1")){location.replace(location.pathname+location.hash)}}catch(e){}})();
 </script></body></html>

@@ -1,7 +1,7 @@
 {
   "name": "IMM V-Notch Calculator",
   "short_name": "V-Notch Calc",
-  "start_url": "./?v=70",
+  "start_url": "./?v=71",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0759a8",
