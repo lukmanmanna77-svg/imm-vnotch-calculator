@@ -55,7 +55,7 @@
 </div>
 <div id="customDates" class="filters" style="display:none;margin-top:8px"><div class="field"><label>Dari</label><input id="fromDate" type="date" onchange="renderGraph()"></div><div class="field"><label>Sampai</label><input id="toDate" type="date" onchange="renderGraph()"></div></div>
 <div class="unitTabs"><button id="uM3" onclick="setUnit('m3')">m³/s</button><button id="uLs" class="sel" onclick="setUnit('ls')">L/s</button><button id="uHr" onclick="setUnit('hr')">m³/jam</button></div>
-<div class="chartBox"><canvas id="chart" width="900" height="520"></canvas><div class="chartCaption"><span id="yAxisCaption">Debit (L/s)</span><span id="xAxisCaption">Tanggal Pengukuran</span></div></div></div>
+<div class="chartBox"><canvas id="chart" width="900" height="560"></canvas></div></div>
 <div class="card"><h3>Rekap Data</h3><div class="stats"><div class="stat"><b id="avg">0</b><small>Rata-rata</small></div><div class="stat"><b id="mx">0</b><small>Maksimum</small></div><div class="stat"><b id="mn">0</b><small>Minimum</small></div><div class="stat"><b id="cnt">0</b><small>Jumlah Data</small></div></div></div>
 </section>
 <section id="export" class="screen"><div class="card"><h3>Data yang Akan Di-Export</h3><div class="exportFilters"><div class="field"><label>Lokasi</label><select id="exportLoc" onchange="prepareExportFilters()"><option value="all">Semua Lokasi</option></select></div><div class="field"><label>Rentang Data</label><select id="exportRange" onchange="toggleExportDates()"><option value="7">7 Hari Terakhir</option><option value="30" selected>30 Hari Terakhir</option><option value="90">90 Hari Terakhir</option><option value="all">Semua Data</option><option value="custom">Pilih Tanggal</option></select></div></div><div id="exportCustomDates" class="exportFilters" style="display:none;margin-top:8px"><div class="field"><label>Dari Tanggal</label><input id="exportFromDate" type="date"></div><div class="field"><label>Sampai Tanggal</label><input id="exportToDate" type="date"></div></div><div class="note" style="margin-top:8px">PDF dan Excel akan mengambil <b>hanya data sesuai lokasi dan rentang tanggal</b> yang dipilih.</div></div><div class="card"><h3>Pilih Format Export</h3><button class="list" onclick="exportCSV()">📗 &nbsp;<b>Export ke Excel / CSV</b><span class="arrow">›</span></button><br><button class="list" onclick="exportPDF()">📕 &nbsp;<b>Export ke PDF</b><span class="arrow">›</span></button></div><div class="card note">PDF terdiri dari halaman laporan dan <b>halaman grafik landscape terpisah</b>. Data tersimpan di perangkat dan aplikasi dapat digunakan offline.</div></section>
@@ -127,22 +127,47 @@ function syncExportFromGraph(){
 function renderGraph(){
  let range=$('range').value;$('customDates').style.display=range==='custom'?'grid':'none';
  let a=filteredData(),c=$('chart'),ctx=c.getContext('2d'),W=c.width,H=c.height;
- const isPh=metric==='ph',yLabel=isPh?'pH Air':`Debit (${$('uM3').textContent||'m³/s'})`,xLabel='Tanggal Pengukuran';
- if($('yAxisCaption'))$('yAxisCaption').textContent=yLabel;if($('xAxisCaption'))$('xAxisCaption').textContent=xLabel;
+ const isPh=metric==='ph';
+ const unitLabel=unit==='m3'?'m³/s':unit==='ls'?'L/s':'m³/jam';
+ const yLabel=isPh?'pH Air':`Debit (${unitLabel})`;
  ctx.clearRect(0,0,W,H);
- const L=92,R=28,T=35,B=82,PW=W-L-R,PH=H-T-B;
- const rawVals=isPh?a.map(x=>Number(x.ph)).filter(Number.isFinite):a.map(x=>unit==='m3'?Number(x.q):unit==='ls'?Number(x.qLs):Number(x.qHr)).filter(Number.isFinite);
- if(!a.length||!rawVals.length){ctx.fillStyle='#6b87a0';ctx.font='22px Arial';ctx.textAlign='center';ctx.fillText('Belum ada data',W/2,H/2);ctx.textAlign='left';['avg','mx','mn','cnt'].forEach(x=>$(x).textContent='0');return}
+ const L=92,R=28,T=35,B=125,PW=W-L-R,PH=H-T-B;
  const vals=a.map(x=>isPh?Number(x.ph):unit==='m3'?Number(x.q):unit==='ls'?Number(x.qLs):Number(x.qHr));
- const top=isPh?14:Math.max(...vals,1),bottom=0,avg=vals.reduce((s,v)=>s+v,0)/vals.length;
- const py=v=>T+PH-(v-bottom)/(top-bottom)*PH,px=i=>L+(a.length===1?PW/2:i/(a.length-1)*PW);
+ if(!a.length||!vals.every(Number.isFinite)){
+   ctx.fillStyle='#6b87a0';ctx.font='22px Arial';ctx.textAlign='center';ctx.fillText('Belum ada data',W/2,H/2);ctx.textAlign='left';
+   ['avg','mx','mn','cnt'].forEach(x=>$(x).textContent='0');return;
+ }
+ const bottom=isPh?0:0;
+ const top=isPh?14:Math.max(...vals,1)*1.12;
+ const avg=vals.reduce((s,v)=>s+v,0)/vals.length;
+ const py=v=>T+PH-(v-bottom)/(top-bottom)*PH;
+ const px=i=>L+(a.length===1?PW/2:i/(a.length-1)*PW);
  ctx.font='12px Arial';ctx.textAlign='right';ctx.fillStyle='#54718f';ctx.strokeStyle='#d9e9f7';ctx.lineWidth=1;
- for(let i=0;i<=5;i++){let v=top-(top-bottom)*i/5,y=T+PH*i/5;ctx.beginPath();ctx.moveTo(L,y);ctx.lineTo(W-R,y);ctx.stroke();ctx.fillText(isPh?v.toFixed(1):fmt(v),L-10,y+4)}
- ctx.save();ctx.translate(25,T+PH/2);ctx.rotate(-Math.PI/2);ctx.textAlign='center';ctx.fillStyle='#315b7d';ctx.font='bold 12px Arial';ctx.fillText(yLabel,0,0);ctx.restore();
- ctx.strokeStyle='#0876e5';ctx.lineWidth=5;ctx.beginPath();a.forEach((x,i)=>{let y=py(vals[i]),xx=px(i);i?ctx.lineTo(xx,y):ctx.moveTo(xx,y)});ctx.stroke();
- ctx.textAlign='center';a.forEach((x,i)=>{let v=vals[i],xx=px(i),yy=py(v);ctx.fillStyle='#0876e5';ctx.beginPath();ctx.arc(xx,yy,7,0,Math.PI*2);ctx.fill();ctx.fillStyle='#0759a8';ctx.font='bold 11px Arial';ctx.fillText(isPh?Number(v).toFixed(2):fmt(v),xx,Math.max(yy-13,14));ctx.save();ctx.translate(xx,H-24);ctx.rotate(-Math.PI/2);ctx.fillStyle='#54718f';ctx.font='11px Arial';ctx.fillText(String(x.date||'-'),0,0);ctx.restore()});
- ctx.fillStyle='#315b7d';ctx.font='bold 12px Arial';ctx.fillText(xLabel,L+PW/2,H-5);ctx.textAlign='left';
- $('avg').textContent=isPh?Number(avg).toFixed(2):fmt(avg);$('mx').textContent=isPh?Number(Math.max(...vals)).toFixed(2):fmt(Math.max(...vals));$('mn').textContent=isPh?Number(Math.min(...vals)).toFixed(2):fmt(Math.min(...vals));$('cnt').textContent=a.length;
+ for(let i=0;i<=5;i++){
+   let v=top-(top-bottom)*i/5,y=T+PH*i/5;
+   ctx.beginPath();ctx.moveTo(L,y);ctx.lineTo(W-R,y);ctx.stroke();
+   ctx.fillText(isPh?v.toFixed(1):fmt(v),L-10,y+4);
+ }
+ // Keterangan sumbu Y dinamis mengikuti satuan grafik yang dipilih.
+ ctx.save();ctx.translate(27,T+PH/2);ctx.rotate(-Math.PI/2);ctx.textAlign='center';ctx.fillStyle='#315b7d';ctx.font='bold 12px Arial';ctx.fillText(yLabel,0,0);ctx.restore();
+ // Garis grafik.
+ ctx.strokeStyle='#0876e5';ctx.lineWidth=5;ctx.beginPath();
+ a.forEach((x,i)=>{let yy=py(vals[i]),xx=px(i);i?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy)});ctx.stroke();
+ // Titik, nilai debit/pH diputar 270°, dan tanggal dibuat lebih jauh dari sumbu.
+ ctx.textAlign='center';
+ a.forEach((x,i)=>{
+   let v=vals[i],xx=px(i),yy=py(v);
+   ctx.fillStyle='#0876e5';ctx.beginPath();ctx.arc(xx,yy,7,0,Math.PI*2);ctx.fill();
+   const valueText=isPh?Number(v).toFixed(2):fmt(v);
+   ctx.save();ctx.translate(xx,Math.max(yy-18,28));ctx.rotate(-Math.PI/2);ctx.fillStyle='#0759a8';ctx.font='bold 11px Arial';ctx.fillText(valueText,0,0);ctx.restore();
+   ctx.save();ctx.translate(xx,H-47);ctx.rotate(-Math.PI/2);ctx.fillStyle='#54718f';ctx.font='11px Arial';ctx.fillText(String(x.date||'-'),0,0);ctx.restore();
+ });
+ // Label sumbu X ditempatkan paling bawah agar tidak bertabrakan dengan tanggal.
+ ctx.fillStyle='#315b7d';ctx.font='bold 12px Arial';ctx.textAlign='center';ctx.fillText('Tanggal Pengukuran',L+PW/2,H-8);ctx.textAlign='left';
+ $('avg').textContent=isPh?Number(avg).toFixed(2):fmt(avg);
+ $('mx').textContent=isPh?Number(Math.max(...vals)).toFixed(2):fmt(Math.max(...vals));
+ $('mn').textContent=isPh?Number(Math.min(...vals)).toFixed(2):fmt(Math.min(...vals));
+ $('cnt').textContent=a.length;
 }
 
 function fmt(n){return n<1?n.toFixed(4):n.toFixed(2)}
