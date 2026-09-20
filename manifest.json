@@ -1,7 +1,7 @@
 {
   "name": "IMM Water Monitoring System",
   "short_name": "IMM Water Monitoring",
-  "start_url": "./?v=91",
+  "start_url": "./?v=92",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0759a8",

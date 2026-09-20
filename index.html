@@ -286,11 +286,11 @@ function makeMobileLandscapePDF(rows,b,loc,first,range,mn,av,mx){
     const info=[['Tanggal',first.date||'-'],['Jam Cetak PDF',new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})],['Lokasi',loc||'-'],['pH Air',Number(first.ph??0).toFixed(2)],['Sudut V-Notch',(first.th??'-')+' deg'],['Cd',first.cd??'-'],['g',(first.g??'-')+' m/s2'],['Jumlah Pintu',first.ng??'-']];
     info.forEach((it,i)=>{let col=i%2,row=Math.floor(i/2),x=margin+col*265,yy=y-row*40;rect(x,yy-28,252,32,false);text(x+7,yy-11,7,it[0],true);text(x+7,yy-23,9,String(it[1]))});
     y-=Math.ceil(info.length/2)*40+4; text(margin,y,11,'Hasil Rekap Debit',true); y-=18;
-    const vals=[['Minimum',mn],['Rata-rata',av],['Maksimum',mx]]; vals.forEach((v,i)=>{let x=margin+i*174;rect(x,y-46,165,40,true);text(x+8,y-17,8,'Debit '+v[0],true);text(x+8,y-34,13,Number(v[1]).toFixed(4)+' m3/s',true);text(x+8,y-43,6,Number(v[1]*1000).toFixed(2)+' L/s | '+Number(v[1]*3600).toFixed(2)+' m3/jam')});
+    const vals=[['Minimum',mn],['Rata-rata',av],['Maksimum',mx]]; vals.forEach((v,i)=>{let x=margin+i*174;rect(x,y-46,165,40,true);text(x+8,y-17,8,'Debit '+v[0],true);text(x+8,y-34,13,Number(v[1]).toFixed(4)+' m3/s',true);text(x+8,y-43,6.5,Number(v[1]*1000).toFixed(2)+' L/s | '+Number(v[1]*3600).toFixed(2)+' m3/jam')});
     y-=58; text(margin,y,11,'Rekap Data Pengukuran',true); y-=16;
     const cols=[['No',24],['Tanggal',62],['Jam',42],['Lokasi',92],['Operator',92],['pH',32],['Pintu',32],['m3/s',55],['L/s',55],['m3/jam',65]];
-    let x=margin; cols.forEach(([k,w])=>{rect(x,y-17,w,17,true);text(x+2,y-11,5.8,k,true);x+=w}); y-=17;
-    rows.forEach((r,i)=>{if(y<65)return;let vals=[i+1,r.date||'',r.time||'',r.loc||'',r.op||'',Number(r.ph??0).toFixed(2),r.ng||'',Number(r.q||0).toFixed(4),Number(r.qLs||0).toFixed(3),Number(r.qHr||0).toFixed(3)];x=margin;cols.forEach(([,w],j)=>{rect(x,y-15,w,15,false);text(x+2,y-10,5.2,String(vals[j]).slice(0,18));x+=w});y-=15});
+    let x=margin; cols.forEach(([k,w])=>{rect(x,y-17,w,17,true);text(x+3,y-11,6.2,k,true);x+=w}); y-=17;
+    rows.forEach((r,i)=>{if(y<65)return;let vals=[i+1,r.date||'',r.time||'',r.loc||'',r.op||'',Number(r.ph??0).toFixed(2),r.ng||'',Number(r.q||0).toFixed(4),Number(r.qLs||0).toFixed(3),Number(r.qHr||0).toFixed(3)];x=margin;cols.forEach(([,w],j)=>{rect(x,y-18,w,18,false);text(x+3,y-12,6.0,String(vals[j]).slice(0,18),j>=7);x+=w});y-=18});
     text(margin,38,7,'Catatan: PDF dibuat langsung dari aplikasi pada perangkat mobile. Data mengikuti filter Export yang dipilih.'); line(margin,27,W1-margin,27); text(margin,17,7,'Operator / Pengukur',false); text(390,17,7,'Supervisor / Pemeriksa',false);
   });
   const p2=buildPage(W2,H2,({c,text,line,rotateText,circle})=>{
