@@ -1,4 +1,4 @@
-const CACHE='imm-vnotch-v96';
+const CACHE='imm-vnotch-v97';
 const APP_SHELL=['./index.html','./manifest.json','./icon-192.png','./icon-512.png','./banpu-heart.png'];
 
 self.addEventListener('install',event=>{
